@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .scoreboardContainer {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footerContainer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+
+        .footerColumn, .scoreboardColumn {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        
+    </style> 
+    <title>Scoreboard</title>
+</head>
+<body>
+    <div class="scoreboardContainer">
+        <div class="scoreboardColumn">
+            <h1 class="homeTeam">Home Team</h1>
+            <h1 class="homeTeamScore">0</h1>
+            <h1 class="homeWrestler">Home Wrestler</h1>
+            <h1 class="homeWrestlerScore">0</h1>
+            <h2 class="homeWrestlerClass">Senior</h2>
+        </div>
+        <div class="scoreboardColumn">
+            <h1 class="timerTime editable">3:00</h1>
+            <h1 class="period">Period: <span class="periodCount">0</span></h1>
+            <img src="images/placeholder.png" alt="Mascot Logo">
+            <h1 class="wrestlerWeight">Weight: <span class="weightClass">106</span></h1>
+        </div>
+        <div class="scoreboardColumn">
+            <h1 class="awayTeam">Away Team</h1>
+            <h1 class="awayTeamScore">0</h1>
+            <h1 class="awayWrestler">Away Wrestler</h1>
+            <h1 class="awayWrestlerScore">0</h1>
+            <h2 class="awayWrestlerClass">Senior</h2>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footerContainer">
+            <div class="footerColumn">
+                <h3 class="homeTeamName">Home Team:</h3>
+                <input type="text" class="homeTeamField" placeholder="Team Name">
+                <button class="homeTeamSubmit">Submit</button>
+                <h3 class="homeTeamScoreLabel">Home Team Score:</h3>
+                <button class="homeTeamScorePlus">+1</button>
+                <button class="homeTeamScoreMinus">-1</button>
+                <h3 class="homeWrestlerName">Home Wrestler:</h3>
+                <input type="text" class="homeWrestlerField" placeholder="Wrestler Name">
+                <button class="homeWrestlerSubmit">Submit</button>
+                <h3 class="homeWrestlerScoreLabel">Home Wrestler Score:</h3>
+                <button class="homeWrestlerScorePlus">+1</button>
+                <button class="homeWrestlerScoreMinus">-1</button>
+                <h3 class="homeWrestlerClass">Home Wrestler Class:</h3>
+                <input type="text" class="homeWrestlerClassField" placeholder="example: Senior">
+                <button class="homeWrestlerClassSubmit">Submit</button>
+            </div>
+            <div class="footerColumn">
+                <h3 class="timer">Timer:</h3>
+                <input type="text" class="timerTimeField" placeholder="example: 2:30 hit enter">
+                <br>
+                <button class="startTimer">Start Timer</button>
+                <button class="pauseTimer">Pause Timer</button>
+                <button class="resetTimer">Reset Timer</button>
+                <br>
+                <h3 class="periodLabel">Period:</h3>
+                <button class="periodIncrease">+1</button>
+                <button class="periodDecrease">-1</button>
+                <br>
+                <h3 class="wrestlerWeightLabel">Wrestler Weight:</h3>
+                <input type="text" class="weightField" placeholder="example: 126">
+                <button class="weightSubmit">Submit</button>
+            </div>
+            <div class="footerColumn">
+                <h3 class="awayTeamName">Away Team:</h3>
+                <input type="text" class="awayTeamField" placeholder="Team Name">
+                <button class="awayTeamSubmit">Submit</button>
+                <h3 class="awayTeamScoreLabel">Away Team Score:</h3>
+                <button class="awayTeamScorePlus">+1</button>
+                <button class="awayTeamScoreMinus">-1</button>
+                <h3 class="awayWrestlerName">Away Wrestler:</h3>
+                <input type="text" class="awayWrestlerField" placeholder="Wrestler Name">
+                <button class="awayWrestlerSubmit">Submit</button>
+                <h3 class="awayWrestlerScoreLabel">Away Wrestler Score:</h3>
+                <button class="awayWrestlerScorePlus">+1</button>
+                <button class="awayWrestlerScoreMinus">-1</button>
+                <h3 class="awayWrestlerClass">Away Wrestler Class:</h3>
+                <input type="text" class="awayWrestlerClassField" placeholder="example: Senior">
+                <button class="awayWrestlerClassSubmit">Submit</button>
+            </div>
+        </div>
+    </footer>
+    <script>
+
+        let timerInterval;
+        let timerValue = 180; // Start at 3:00 minutes
+        let periodValue = 1;
+        let weightValue = 0;
+
+        // Converts seconds into mm:ss format
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (!timerInterval) {
+                timerInterval = setInterval(() => {
+                    timerValue -= 1;
+                    if (timerValue < 0) {
+                        clearInterval(timerInterval);
+                        timerValue = 0;
+                    }
+                    document.querySelector('.timerTime').textContent = formatTime(timerValue);
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timerValue = 180; // Reset to 3:00 minutes
+            document.querySelector('.timerTime').textContent = formatTime(timerValue);
+        }
+
+        function updatePeriod(isIncrease) {
+            periodValue += (isIncrease ? 1 : -1);
+            document.querySelector('.periodCount').textContent = periodValue;
+        }
+
+        function updateWeight() {
+            weightValue = document.querySelector('.weightField').value;
+            document.querySelector('.weightClass').textContent = weightValue;
+        }
+
+        // New function to update the timer
+        function updateTimer() {
+            const inputTime = document.querySelector('.timerTimeField').value;
+            const [minutes, seconds] = inputTime.split(':').map(Number);
+            timerValue = minutes * 60 + (seconds || 0);
+            document.querySelector('.timerTime').textContent = formatTime(timerValue);
+            document.querySelector('.timerTimeField').value = '';
+        }
+
+        document.querySelector('.startTimer').addEventListener('click', startTimer);
+        document.querySelector('.pauseTimer').addEventListener('click', pauseTimer);
+        document.querySelector('.resetTimer').addEventListener('click', resetTimer);
+        document.querySelector('.periodIncrease').addEventListener('click', () => updatePeriod(true));
+        document.querySelector('.periodDecrease').addEventListener('click', () => updatePeriod(false));
+        document.querySelector('.weightSubmit').addEventListener('click', updateWeight);
+        document.querySelector('.timerTimeField').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                updateTimer();
+            }
+        });
+
+        // For Team and Wrestler
+        ['home', 'away'].forEach(team => {
+            document.querySelector(`.${team}TeamSubmit`).addEventListener('click', function() {
+                const value = document.querySelector(`.${team}TeamField`).value;
+                document.querySelector(`.${team}Team`).textContent = value;
+            });
+
+    document.querySelector(`.${team}WrestlerSubmit`).addEventListener('click', function() {
+        const value = document.querySelector(`.${team}WrestlerField`).value;
+        document.querySelector(`.${team}Wrestler`).textContent = value;
+    });
+
+    document.querySelector(`.${team}WrestlerClassSubmit`).addEventListener('click', function() {
+        const value = document.querySelector(`.${team}WrestlerClassField`).value;
+        document.querySelector(`.${team}WrestlerClass`).textContent = value;
+    });
+
+    // Team score
+    document.querySelector(`.${team}TeamScorePlus`).addEventListener('click', function() {
+        const score = document.querySelector(`.${team}TeamScore`);
+        score.textContent = parseInt(score.textContent) + 1;
+    });
+
+    document.querySelector(`.${team}TeamScoreMinus`).addEventListener('click', function() {
+        const score = document.querySelector(`.${team}TeamScore`);
+        score.textContent = Math.max(0, parseInt(score.textContent) - 1);
+    });
+});
+
+    // Wrestler score
+    document.querySelector('.homeWrestlerScorePlus').addEventListener('click', function() {
+        const score = document.querySelector('.homeWrestlerScore');
+        score.textContent = parseInt(score.textContent) + 1;
+    });
+
+    document.querySelector('.homeWrestlerScoreMinus').addEventListener('click', function() {
+        const score = document.querySelector('.homeWrestlerScore');
+        score.textContent = Math.max(0, parseInt(score.textContent) - 1);
+    });
+
+    document.querySelector('.awayWrestlerScorePlus').addEventListener('click', function() {
+        const score = document.querySelector('.awayWrestlerScore');
+        score.textContent = parseInt(score.textContent) + 1;
+    });
+
+    document.querySelector('.awayWrestlerScoreMinus').addEventListener('click', function() {
+        const score = document.querySelector('.awayWrestlerScore');
+        score.textContent = Math.max(0, parseInt(score.textContent) - 1);
+    });
+
+    </script>
+</body>
+</html>

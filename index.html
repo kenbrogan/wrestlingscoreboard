@@ -18,12 +18,16 @@
     <button class="homeWrestlerSubmit">Submit</button>
     <br>
 
-    <!-- create a button called Start Timer: class="startTimer" and when the button is clicked change h1 class="timer" to 03:00. need to be able to pause the timer and add and subtract 1 minute, 1 second -->
+    <!-- create a button called Start Timer: class="startTimer" and when the button is clicked change h1 class="timer" to 03:00. need to be able to pause the timer and edit the timer. -->
+    <h1 class="timer">Timer</h1>
+    <br>
+    <h1 class="timerTime">03:00</h1>
+    <input type="text" class="timerTimeField" placeholder="example: 00:00">
+    <br>
     <button class="startTimer">Start Timer</button>
-    <h1 class="timer">03:00</h1>
     <button class="pauseTimer">Pause Timer</button>
-
-
+    <br>
+    
     <!-- create an input field called Wrestler: class="awayWrestlerField" with placeholder: wrestler name and when the submit button is clicked change h1 class="awayWrestler" to data from awayWrestlerField.-->
     <h1 class="awayWrestler">Away Wrestler</h1>
     <input type="text" class="awayWrestlerField" placeholder="Wrestler Name">
@@ -60,16 +64,60 @@
             awayWrestlerField.value = "";
         });
 
-        // create a function that changes the h1 class="timer" to 03:00 when the button class="startTimer" is clicked.
+        // create a function that starts the timerTime when the button class="startTimer" is clicked and the timer should count down from 03:00 to 00:00 and then stop. create a way for the timer to be able to be updated by clicking on timerTime and typing in the new time and hitting enter and use a tool tip and change pointer to show that the timerTime is editable.
 
-        let timer = document.querySelector(".timer");
+        let timerTime = document.querySelector(".timerTime");
         let startTimer = document.querySelector(".startTimer");
+        let pauseTimer = document.querySelector(".pauseTimer");
 
         startTimer.addEventListener("click", function(){
-            timer.textContent = "03:00";
+            let time = 180;
+            let minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+            timerTime.textContent = `${minutes}:${seconds}`;
+            let timer = setInterval(function(){
+                time--;
+                let minutes = Math.floor(time / 60);
+                let seconds = time % 60;
+                timerTime.textContent = `${minutes}:${seconds}`;
+                if (time === 0){
+                    clearInterval(timer);
+                }
+            }, 1000);
         });
 
+        // create a function that pauses the timerTime when the button class="pauseTimer" is clicked and the timer should stop counting down and the timerTime should stay at the time it was at when the pauseTimer button was clicked.
 
+        pauseTimer.addEventListener("click", function(){
+            clearInterval(timer);
+        });
+
+        // create a function that changes the timerTime to the data from the input field class="timerTimeField" when the enter key is pressed and the timer should start counting down from the new time and the timerTime should be editable by clicking on it and typing in the new time and hitting enter and use a tool tip and change pointer to show that the timerTime is editable.
+
+        let timerTimeField = document.querySelector(".timerTimeField");
+
+        timerTime.addEventListener("click", function(){
+            timerTimeField.value = timerTime.textContent;
+        });
+
+        timerTimeField.addEventListener("keypress", function(e){
+            if (e.key === "Enter"){
+                timerTime.textContent = timerTimeField.value;
+                let time = timerTimeField.value;
+                let minutes = Math.floor(time / 60);
+                let seconds = time % 60;
+                timerTime.textContent = `${minutes}:${seconds}`;
+                let timer = setInterval(function(){
+                    time--;
+                    let minutes = Math.floor(time / 60);
+                    let seconds = time % 60;
+                    timerTime.textContent = `${minutes}:${seconds}`;
+                    if (time === 0){
+                        clearInterval(timer);
+                    }
+                }, 1000);
+            }
+        });
 
 
 
