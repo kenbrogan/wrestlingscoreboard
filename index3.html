@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- create 3 columns. column 1 will contain all home info and column 3 will contain all away info and the middle column column 2 will contain all info for timer, period, weight. -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buttons</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <!-- create a button called Start Timer: class="startTimer" and when the button is clicked change h1 class="timer" to 03:00. -->
+    <!-- create an input field called Wrestler: class="homeWrestlerField" with placeholder: wrestler name and when the submit button is clicked change h1 class="homeWrestler" to data from homeWrestlerField.-->
+    <h1 class="homeWrestler">Home Wrestler</h1>
+    <input type="text" class="homeWrestlerField" placeholder="Wrestler Name">
+    <button class="homeWrestlerSubmit">Submit</button>
+    <br>
+
+    <!-- create a button called Start Timer: class="startTimer" and when the button is clicked change h1 class="timer" to 03:00. need to be able to pause the timer and add and subtract 1 minute, 1 second -->
+    <button class="startTimer">Start Timer</button>
+    <h1 class="timer">03:00</h1>
+    <button class="pauseTimer">Pause Timer</button>
+
+
+    <!-- create an input field called Wrestler: class="awayWrestlerField" with placeholder: wrestler name and when the submit button is clicked change h1 class="awayWrestler" to data from awayWrestlerField.-->
+    <h1 class="awayWrestler">Away Wrestler</h1>
+    <input type="text" class="awayWrestlerField" placeholder="Wrestler Name">
+    <button class="awayWrestlerSubmit">Submit</button>
+    <br>
+    
+    <script>
+        // create a function that changes the h1 class="homeWrestler" to the data from the input field class="homeWrestlerField" when the submit button class="homeWrestlerSubmit" is clicked.
+        // create a function that changes the h1 class="awayWrestler" to the data from the input field class="awayWrestlerField" when the submit button class="awayWrestlerSubmit" is clicked.  
+
+        let homeWrestler = document.querySelector(".homeWrestler");
+        let homeWrestlerField = document.querySelector(".homeWrestlerField");
+        let homeWrestlerSubmit = document.querySelector(".homeWrestlerSubmit");
+
+        let awayWrestler = document.querySelector(".awayWrestler");
+        let awayWrestlerField = document.querySelector(".awayWrestlerField");
+        let awayWrestlerSubmit = document.querySelector(".awayWrestlerSubmit");
+
+        homeWrestlerSubmit.addEventListener("click", function(){
+            homeWrestler.textContent = homeWrestlerField.value;
+        });
+
+        awayWrestlerSubmit.addEventListener("click", function(){
+            awayWrestler.textContent = awayWrestlerField.value;
+        });
+
+        // the homeWrestlerSubmit button should reset the homeWrestlerField to an empty string after the submit button is clicked and the homeWrestler h1 is changed and the same for the awayWrestlerSubmit button.
+
+        homeWrestlerSubmit.addEventListener("click", function(){
+            homeWrestlerField.value = "";
+        });
+
+        awayWrestlerSubmit.addEventListener("click", function(){
+            awayWrestlerField.value = "";
+        });
+
+        // create a function that changes the h1 class="timer" to 03:00 when the button class="startTimer" is clicked.
+
+        let timer = document.querySelector(".timer");
+        let startTimer = document.querySelector(".startTimer");
+
+        startTimer.addEventListener("click", function(){
+            timer.textContent = "03:00";
+        });
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
