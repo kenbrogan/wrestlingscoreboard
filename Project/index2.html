@@ -7,9 +7,18 @@
     <style>
 
         body {
+            background-color: #444544;
             margin: 0;
             padding: 0;
             font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .homeColumn {
+            background-color: #1F5A2C;
+        }
+
+        .awayColumn {
+            background-color: #AF2629;
         }
 
        .home1,
@@ -37,6 +46,12 @@
             font-size: 80px;
         }
 
+        .classText {
+            color: black;
+            /* change the font size of the h1 */
+            font-size: 30px;
+        }
+
         .timerTimeField {
             margin-bottom: 20px;
         }
@@ -60,7 +75,7 @@
         }
 
         .footerContainer {
-            background-color: darkgreen;
+            background-color: #1F5A2C;
         }
         
     </style> 
@@ -68,12 +83,12 @@
 </head>
 <body>
     <div class="scoreboardContainer">
-        <div class="scoreboardColumn">
+        <div class="scoreboardColumn homeColumn">
             <h1 class="homeTeam home1">Home Team</h1>
             <h1 class="homeTeamScore home2">0</h1>
             <h1 class="homeWrestler home1">Home Wrestler</h1>
             <h1 class="homeWrestlerScore home2">0</h1>
-            <h2 class="homeWrestlerClass home3">Senior</h2>
+            <h2 class="homeWrestlerClass classText">Senior</h2>
         </div>
         <div class="scoreboardColumn">
             <h1 class="timerTime editable">3:00</h1>
@@ -81,12 +96,12 @@
             <img src="/images/greenPanther.png" alt="Mascot Logo">
             <h1 class="wrestlerWeight">Weight: <span class="weightClass">106</span></h1>
         </div>
-        <div class="scoreboardColumn">
+        <div class="scoreboardColumn awayColumn">
             <h1 class="awayTeam away1">Away Team</h1>
             <h1 class="awayTeamScore away2">0</h1>
             <h1 class="awayWrestler away1">Away Wrestler</h1>
             <h1 class="awayWrestlerScore away2">0</h1>
-            <h2 class="awayWrestlerClass away3">Senior</h2>
+            <h2 class="awayWrestlerClass classText">Senior</h2>
         </div>
     </div>
 
